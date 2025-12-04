@@ -15,8 +15,9 @@ Question: Join the `metadata_pl` and `ratings_pl` DataFrames in Polars, then cal
 Answer:
 
 ```python
-metadata_lf = pl.scan_csv("data/movies_metadata.csv")
-ratings_lf  = pl.scan_csv("data/ratings.csv")
+#dataset are too huge
+metadata_lf = pl.scan_csv("data/movies_metadata.csv") #lazy read for movie dataset
+ratings_lf  = pl.scan_csv("data/ratings.csv") #lazy read for ratings 
 joint_lf = ratings_lf.join(metadata_lf, on="movieId", how="inner")
 
 genre_rating = (
