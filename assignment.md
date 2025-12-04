@@ -16,6 +16,7 @@ Answer:
 
 ```python
 #dataset are too huge, i moved the dataset to same tutotial folder so that i can read from the same folder
+import polars as pl
 metadata_lf = pl.scan_csv("data/movies_metadata.csv") #lazy read for movie dataset
 ratings_lf  = pl.scan_csv("data/ratings.csv") #lazy read for ratings 
 joint_lf = ratings_lf.join(metadata_lf, on="movieId", how="inner")
