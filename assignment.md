@@ -53,6 +53,25 @@ Answer:
 
 ```python
 
+import polars as pl
+
+# Lazy read for big data
+trips_lf = pl.scan_csv("yellow_tripdata.csv")
+
+result = (
+    trips_lf
+        .groupby("vendor_id")
+        .agg([
+            pl.count().alias("trip_count"),
+            pl.col("total_amount").mean().alias("avg_total_amount")
+        ])
+        .filter(pl.col("trip_count") >= 5)
+        .sort("avg_total_amount", descending=True)
+        .collect()
+)
+
+result
+
 ```
 
 ## Submission
